@@ -54,10 +54,10 @@
         </dependency>
 
         <!--SpringSecurity依赖配置-->
-        <dependency>
+<!--        <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-security</artifactId>
-        </dependency>
+        </dependency>-->
         <!--Hutool Java工具包-->
         <dependency>
             <groupId>cn.hutool</groupId>

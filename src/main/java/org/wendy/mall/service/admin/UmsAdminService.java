@@ -1,16 +1,8 @@
 package org.wendy.mall.service.admin;
 
 import org.wendy.mall.dao.entity.UmsAdmin;
-import org.wendy.mall.dao.entity.UmsPermission;
-
-import java.util.List;
 
 public interface UmsAdminService {
-    /**
-     * 根据用户名获取后台管理员
-     */
-    UmsAdmin getAdminByUsername(String username);
-
     /**
      * 注册功能
      */
@@ -24,9 +16,4 @@ public interface UmsAdminService {
      * @return 生成的JWT的token
      */
     String login(String username, String password);
-
-    /**
-     * 获取用户所有权限（包括角色权限和+-权限）
-     */
-    List<UmsPermission> getPermissionList(Long adminId);
 }

@@ -4,20 +4,10 @@ import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.BeanUtils;
-import org.springframework.security.authentication.BadCredentialsException;
-import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
-import org.springframework.security.core.AuthenticationException;
-import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.security.core.userdetails.UserDetailsService;
-import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.wendy.mall.dao.UmsAdminMapper;
-import org.wendy.mall.dao.UmsAdminRoleRelationMapper;
 import org.wendy.mall.dao.entity.UmsAdmin;
-import org.wendy.mall.dao.entity.UmsPermission;
 import org.wendy.mall.service.admin.UmsAdminService;
-import org.wendy.mall.utils.JwtTokenUtil;
 
 import javax.annotation.Resource;
 import java.util.Date;
@@ -30,31 +20,9 @@ import java.util.List;
 @Service
 public class UmsAdminServiceImpl implements UmsAdminService {
     private static final Logger LOGGER = LoggerFactory.getLogger(UmsAdminServiceImpl.class);
-    @Resource
-    private UserDetailsService userDetailsService;
-
-    @Resource
-    private JwtTokenUtil jwtTokenUtil;
-
-    @Resource
-    private PasswordEncoder passwordEncoder;
 
     @Resource
     private UmsAdminMapper adminMapper;
-
-    @Resource
-    private UmsAdminRoleRelationMapper adminRoleRelationDao;
-
-    @Override
-    public UmsAdmin getAdminByUsername(String username) {
-        LambdaQueryWrapper<UmsAdmin> queryWrapper = new LambdaQueryWrapper<>();
-        queryWrapper.eq(UmsAdmin::getUsername, username);
-        List<UmsAdmin> adminList = adminMapper.selectList(queryWrapper);
-        if (adminList != null && adminList.size() > 0) {
-            return adminList.get(0);
-        }
-        return null;
-    }
 
     @Override
     public UmsAdmin register(UmsAdmin umsAdminParam) {
@@ -70,32 +38,14 @@ public class UmsAdminServiceImpl implements UmsAdminService {
             return null;
         }
         //将密码进行加密操作
-        String encodePassword = passwordEncoder.encode(umsAdmin.getPassword());
-        umsAdmin.setPassword(encodePassword);
+        // TODO
+        umsAdmin.setPassword(umsAdmin.getPassword());
         adminMapper.insert(umsAdmin);
         return umsAdmin;
     }
 
     @Override
     public String login(String username, String password) {
-        String token = null;
-        try {
-            UserDetails userDetails = userDetailsService.loadUserByUsername(username);
-            if (!passwordEncoder.matches(password, userDetails.getPassword())) {
-                throw new BadCredentialsException("密码不正确");
-            }
-            UsernamePasswordAuthenticationToken authentication = new UsernamePasswordAuthenticationToken(userDetails, null, userDetails.getAuthorities());
-            SecurityContextHolder.getContext().setAuthentication(authentication);
-            token = jwtTokenUtil.generateToken(userDetails);
-        } catch (AuthenticationException e) {
-            LOGGER.warn("登录异常:{}", e.getMessage());
-        }
-        return token;
-    }
-
-
-    @Override
-    public List<UmsPermission> getPermissionList(Long adminId) {
-        return adminRoleRelationDao.getPermissionList(adminId);
+        return "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJ3ZW5keW1hIiwiY3JlYXRlZCI6MTY4NzUwMTQwMTczOCwiZXhwIjoxNjg3NTg3ODAxfQ.8dpK34Ofbr5Yv-0xP6A1j--UQlUcLN9rgCNCROICiFwZf1bg3K9BpgNtcvL1qh31rFUH4aXuj7aavYZPsbYJKw";
     }
 }
