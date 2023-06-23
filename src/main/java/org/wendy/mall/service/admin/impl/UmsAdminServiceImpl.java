@@ -1,10 +1,9 @@
-package org.wendy.mall.service.impl;
+package org.wendy.mall.service.admin.impl;
 
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.BeanUtils;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.AuthenticationException;
@@ -17,7 +16,7 @@ import org.wendy.mall.dao.UmsAdminMapper;
 import org.wendy.mall.dao.UmsAdminRoleRelationMapper;
 import org.wendy.mall.dao.entity.UmsAdmin;
 import org.wendy.mall.dao.entity.UmsPermission;
-import org.wendy.mall.service.UmsAdminService;
+import org.wendy.mall.service.admin.UmsAdminService;
 import org.wendy.mall.utils.JwtTokenUtil;
 
 import javax.annotation.Resource;
@@ -39,9 +38,6 @@ public class UmsAdminServiceImpl implements UmsAdminService {
 
     @Resource
     private PasswordEncoder passwordEncoder;
-
-    @Value("${jwt.tokenHead}")
-    private String tokenHead;
 
     @Resource
     private UmsAdminMapper adminMapper;

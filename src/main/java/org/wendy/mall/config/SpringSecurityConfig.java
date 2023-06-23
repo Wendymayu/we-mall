@@ -22,7 +22,7 @@ import org.wendy.mall.component.RestfulAccessDeniedHandler;
 import org.wendy.mall.dao.entity.UmsAdmin;
 import org.wendy.mall.dao.entity.UmsPermission;
 import org.wendy.mall.dto.AdminUserDetails;
-import org.wendy.mall.service.UmsAdminService;
+import org.wendy.mall.service.admin.UmsAdminService;
 
 import java.util.List;
 

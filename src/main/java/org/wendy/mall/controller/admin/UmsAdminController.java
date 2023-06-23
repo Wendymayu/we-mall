@@ -1,4 +1,4 @@
-package org.wendy.mall.controller;
+package org.wendy.mall.controller.admin;
 
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -11,7 +11,7 @@ import org.wendy.mall.common.CommonResult;
 import org.wendy.mall.dao.entity.UmsAdmin;
 import org.wendy.mall.dao.entity.UmsPermission;
 import org.wendy.mall.dto.UmsAdminLoginParam;
-import org.wendy.mall.service.UmsAdminService;
+import org.wendy.mall.service.admin.UmsAdminService;
 
 import java.util.HashMap;
 import java.util.List;
@@ -29,8 +29,6 @@ public class UmsAdminController {
     private UmsAdminService adminService;
     @Value("${jwt.tokenHeader}")
     private String tokenHeader;
-    @Value("${jwt.tokenHead}")
-    private String tokenHead;
 
     @ApiOperation(value = "用户注册")
     @RequestMapping(value = "/register", method = RequestMethod.POST)
@@ -53,7 +51,6 @@ public class UmsAdminController {
         }
         Map<String, String> tokenMap = new HashMap<>();
         tokenMap.put("token", token);
-        tokenMap.put("tokenHead", tokenHead);
         return CommonResult.success(tokenMap);
     }
 

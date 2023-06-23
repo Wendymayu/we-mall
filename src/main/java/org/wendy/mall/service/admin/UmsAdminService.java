@@ -1,4 +1,4 @@
-package org.wendy.mall.service;
+package org.wendy.mall.service.admin;
 
 import org.wendy.mall.dao.entity.UmsAdmin;
 import org.wendy.mall.dao.entity.UmsPermission;
