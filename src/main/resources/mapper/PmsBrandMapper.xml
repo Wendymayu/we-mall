@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="org.wendy.mall.dao.PmsBrandMapper">
+    <select id="queryByName" resultType="org.wendy.mall.dao.entity.PmsBrand">
+        select * from pms_brand t
+        <where>
+            1=1
+            <if test="keyword != null">
+                and t.name like concat('%' ,#{keyword} ,'%')
+            </if>
+            <if test="showStatus != null">
+                and t.show_status = #{showStatus}
+            </if>
+        </where>
+    </select>
+</mapper>

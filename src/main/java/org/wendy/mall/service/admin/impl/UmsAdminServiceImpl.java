@@ -30,6 +30,7 @@ public class UmsAdminServiceImpl implements UmsAdminService {
         BeanUtils.copyProperties(umsAdminParam, umsAdmin);
         umsAdmin.setCreateTime(new Date());
         umsAdmin.setStatus(1);
+
         //查询是否有相同用户名的用户
         LambdaQueryWrapper<UmsAdmin> queryWrapper = new LambdaQueryWrapper<>();
         queryWrapper.eq(UmsAdmin::getUsername, umsAdminParam.getUsername());

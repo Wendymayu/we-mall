@@ -28,15 +28,17 @@ public class HelloControllerTest {
     private HelloController helloController;
 
     @BeforeAll
-    public static void initializeToken(WebApplicationContext wac)throws Exception {
+    public static void initializeToken(WebApplicationContext wac) throws Exception {
         initializeMockMvc(wac);
 
+        // 请求参数
         UmsAdminLoginParam loginParam = new UmsAdminLoginParam();
         loginParam.setUsername("wendyma");
         loginParam.setPassword("52wendyma");
         ObjectMapper objectMapper = new ObjectMapper();
         String content = objectMapper.writeValueAsString(loginParam);
 
+        // 调用登录接口获取token
         MvcResult result = mockMvc.perform(MockMvcRequestBuilders.post("/admin/login")
                 .content(content)
                 .contentType(MediaType.APPLICATION_JSON)
@@ -47,7 +49,7 @@ public class HelloControllerTest {
         token = jsonNode.get("data").get("token").asText();
     }
 
-    static void initializeMockMvc(WebApplicationContext wac){
+    static void initializeMockMvc(WebApplicationContext wac) {
         // 方式1：明确指定需要测试的“Controller”类
         // this.mockMvc = MockMvcBuilders.standaloneSetup(helloController).build();
 
@@ -57,6 +59,7 @@ public class HelloControllerTest {
 
     @Test
     void test_hello() throws Exception {
+        // 请求接口时header携带token验证登录
         MvcResult result = mockMvc.perform(MockMvcRequestBuilders.get("/hello/world")
                 .header(AUTHORIZATION, token)
                 .contentType(MediaType.APPLICATION_JSON)
